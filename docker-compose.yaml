@@ -1,0 +1,21 @@
+services:
+  frontend:
+    container_name: react-vite
+    image: react-vite/v1.0.0
+    stdin_open: true
+    tty: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    networks:
+      - frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+networks:
+  frontend:
+    name: react-vite
