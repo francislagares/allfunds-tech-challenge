@@ -1,12 +1,15 @@
 import { PropsWithChildren } from 'react';
 
 import { CartProvider } from './CartProvider';
+import { FavoritesProvider } from './FavoritesProvider';
 import ReactQueryProvider from './ReactQueryProvider';
 
 const Providers = ({ children }: PropsWithChildren) => {
   return (
     <ReactQueryProvider>
-      <CartProvider>{children}</CartProvider>
+      <CartProvider>
+        <FavoritesProvider>{children}</FavoritesProvider>
+      </CartProvider>
     </ReactQueryProvider>
   );
 };

@@ -1,8 +1,10 @@
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 
 import { Product } from '@/domain/entities/product';
+import { ProductService } from '@/infrastucture/product/product.service.';
 
-// Type definitions for a cart item and context
+const productService = new ProductService();
+
 type CartItem = {
   product: Product;
   quantity: number;
@@ -13,14 +15,12 @@ type CartContextType = {
   addToCart: (product: Product) => void;
   removeFromCart: (product: Product) => void;
   getItemCount: () => number;
-  cartItems: CartItem[]; // Add cartItems to the context so components can access it
-  totalAmount: () => number; // Method to calculate the total amount
+  cartItems: CartItem[];
+  totalAmount: () => number;
 };
 
-// Create a Cart Context with default values
 const CartContext = createContext<CartContextType>({} as CartContextType);
 
-// CartProvider component
 export function CartProvider({ children }: PropsWithChildren) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
@@ -29,7 +29,19 @@ export function CartProvider({ children }: PropsWithChildren) {
     return item || null;
   };
 
-  const addToCart = (product: Product) => {
+  const updateStock = async (productId: string, change: number) => {
+    // Fetch the current product data
+    const products = await productService.getAllProducts();
+    const product = products.find(p => p.id === productId);
+    if (product) {
+      // Calculate the new stock value
+      const newStock = product.stock + change;
+      // Update the stock in the database
+      await productService.updateStock(productId, newStock);
+    }
+  };
+
+  const addToCart = async (product: Product) => {
     const item = getItem(product);
 
     if (item) {
@@ -41,13 +53,17 @@ export function CartProvider({ children }: PropsWithChildren) {
             : item,
         ),
       );
+      // Decrease stock
+      await updateStock(product.id, -1);
     } else {
       // Add new item to the cart with quantity 1
       setCartItems([...cartItems, { product, quantity: 1 }]);
+      // Decrease stock
+      await updateStock(product.id, -1);
     }
   };
 
-  const removeFromCart = (product: Product) => {
+  const removeFromCart = async (product: Product) => {
     const item = getItem(product);
     if (!item) return;
 
@@ -60,16 +76,19 @@ export function CartProvider({ children }: PropsWithChildren) {
             : item,
         ),
       );
+      // Increase stock
+      await updateStock(product.id, 1);
     } else {
       // Remove item if quantity is 1
       setCartItems(cartItems.filter(item => item.product.id !== product.id));
+      // Increase stock
+      await updateStock(product.id, 1);
     }
   };
 
   const getItemCount = () =>
     cartItems.reduce((total, item) => total + item.quantity, 0);
 
-  // Calculate the total amount of the cart
   const totalAmount = () =>
     cartItems.reduce(
       (total, item) => total + item.product.price * item.quantity,
@@ -92,7 +111,6 @@ export function CartProvider({ children }: PropsWithChildren) {
   );
 }
 
-// Custom hook to use the CartContext
 export const useCartContext = () => {
   const context = useContext(CartContext);
 

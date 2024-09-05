@@ -1,5 +1,7 @@
 import { Product } from '@/domain/entities/product';
 
+import FavoriteButton from '../button/FavoriteButton';
+
 import {
   AddToCartButton,
   CardContainer,
@@ -32,6 +34,7 @@ const ProductCard: React.FC<CardProps> = ({ product, onAddToCart }) => {
         <StockInfo stock={product.stock}>
           {product.stock > 0 ? `In Stock: ${product.stock}` : 'Out of Stock'}
         </StockInfo>
+        <FavoriteButton product={product} />
         <AddToCartButton
           onClick={handleAddToCart}
           disabled={product.stock === 0}
