@@ -1,7 +1,7 @@
-import { ProductList } from './presentation/components/products/ProductList';
+import { Layout } from '@/presentation/layout';
 
 const App = () => {
-  return <ProductList />;
+  return <Layout />;
 };
 
 export default App;
