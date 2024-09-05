@@ -1,11 +1,21 @@
 import styled from 'styled-components';
 
 export const CartContainer = styled.div`
-  width: 100%;
-  max-width: 400px;
-  background-color: #f9f9f9;
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  width: 30%; // Set a fixed width for larger screens
   padding: 20px;
-  border-left: 1px solid #ddd;
+  box-sizing: border-box;
+  overflow-y: auto; // Allows scrolling inside the cart
+  background-color: white; // To prevent content overlap
+
+  @media (max-width: 1024px) {
+    position: static; // Remove fixed positioning for smaller screens
+    width: 100%; // Make the cart full-width for mobile view
+    max-width: 100%; // Ensure it fits the screen width
+  }
 `;
 
 // CartItem Container to align elements horizontally
@@ -67,7 +77,6 @@ export const CheckoutButton = styled.button`
   color: white;
   font-size: 18px;
   padding: 10px;
-  margin-top: 10px;
   border: none;
   cursor: pointer;
 `;

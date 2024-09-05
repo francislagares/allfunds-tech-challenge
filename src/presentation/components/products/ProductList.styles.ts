@@ -1,5 +1,32 @@
 import styled from 'styled-components';
 
+export const ProductsGrid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  flex: 3;
+  padding-right: 30%;
+
+  @media (min-width: 1025px) {
+    > div {
+      flex: 1 1 calc(25% - 20px); // 4 columns for larger screens
+    }
+  }
+
+  @media (max-width: 1024px) {
+    padding-right: 0;
+    > div {
+      flex: 1 1 calc(50% - 20px); // 2 columns for medium screens
+    }
+  }
+
+  @media (max-width: 768px) {
+    > div {
+      flex: 1 1 100%; // 1 column for mobile view
+    }
+  }
+`;
+
 export const CardContainer = styled.div`
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -59,32 +86,6 @@ export const AddToCartButton = styled.button`
 
   &:hover {
     background-color: #555;
-  }
-`;
-
-// Product list grid using Flexbox
-export const ProductsGrid = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  flex: 3;
-
-  @media (min-width: 1025px) {
-    > div {
-      flex: 1 1 calc(25% - 20px); // 4 columns
-    }
-  }
-
-  @media (max-width: 1024px) {
-    > div {
-      flex: 1 1 calc(50% - 20px); // 2 columns between 768px and 1024px
-    }
-  }
-
-  @media (max-width: 768px) {
-    > div {
-      flex: 1 1 100%; // 1 column for mobile view
-    }
   }
 `;
 
