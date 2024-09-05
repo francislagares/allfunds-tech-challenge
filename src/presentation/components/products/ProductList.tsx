@@ -2,6 +2,8 @@ import React from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 
+import { useCartContext } from '@/providers/CartProvider';
+
 import { Product } from '@/domain/entities/product';
 import { ProductService } from '@/infrastucture/product/product.service.';
 
@@ -11,6 +13,7 @@ import { ProductsGrid } from './ProductList.styles';
 const productRepository = new ProductService();
 
 export const ProductList: React.FC = () => {
+  const { addToCart } = useCartContext();
   const {
     data: products,
     isLoading,
@@ -21,22 +24,26 @@ export const ProductList: React.FC = () => {
   });
 
   const handleAddToCart = (product: Product) => {
-    console.log('Product added to cart:', product);
-    // Aquí llamarías a la lógica de añadir al carrito
+    addToCart(product);
   };
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading products</div>;
+
+  if (error) return <div>Error: {error.message}</div>;
+
+  if (products!.length === 0) return <p>No products available.</p>;
 
   return (
-    <ProductsGrid>
-      {products?.map(product => (
-        <ProductCard
-          key={product.id}
-          product={product}
-          onAddToCart={handleAddToCart}
-        />
-      ))}
-    </ProductsGrid>
+    <>
+      <ProductsGrid>
+        {products?.map(product => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            onAddToCart={handleAddToCart}
+          />
+        ))}
+      </ProductsGrid>
+    </>
   );
 };

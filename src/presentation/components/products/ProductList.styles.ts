@@ -1,17 +1,12 @@
 import styled from 'styled-components';
 
-export const ProductsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 50px;
-`;
-
 export const CardContainer = styled.div`
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   display: flex;
+  min-width: 210px;
   flex-direction: column;
   justify-content: space-between;
 `;
@@ -65,4 +60,80 @@ export const AddToCartButton = styled.button`
   &:hover {
     background-color: #555;
   }
+`;
+
+// Product list grid using Flexbox
+export const ProductsGrid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  flex: 3;
+
+  @media (min-width: 1025px) {
+    > div {
+      flex: 1 1 calc(25% - 20px); // 4 columns
+    }
+  }
+
+  @media (max-width: 1024px) {
+    > div {
+      flex: 1 1 calc(50% - 20px); // 2 columns between 768px and 1024px
+    }
+  }
+
+  @media (max-width: 768px) {
+    > div {
+      flex: 1 1 100%; // 1 column for mobile view
+    }
+  }
+`;
+
+// Cart summary for desktop
+export const CartContainer = styled.div`
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  max-width: 350px;
+
+  @media (max-width: 1024px) {
+    display: none; // Hide the cart summary on smaller screens
+  }
+`;
+
+// Mobile cart view container (for 2-view navigation)
+export const MobileCartContainer = styled.div`
+  display: none;
+
+  @media (max-width: 1024px) {
+    display: block; // Show only on smaller screens
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+`;
+
+// Button to toggle views on mobile
+export const NavButton = styled.button`
+  display: none;
+  background-color: #213547;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px;
+  opacity: 0.8;
+  cursor: pointer;
+
+  @media (max-width: 1024px) {
+    display: inline-block; // Show navigation buttons on smaller screens
+  }
+`;
+
+// Button styles for toggling between product and cart view
+export const ViewSwitchButton = styled(NavButton)`
+  position: fixed;
+  top: 10px;
+  right: 8px;
 `;
