@@ -1,15 +1,7 @@
-import '@/styles/app.css';
+import { ProductList } from './presentation/components/products/ProductList';
 
 const App = () => {
-  return (
-    <div className='App'>
-      <h1>Vite + React + TypeScript</h1>
-
-      <p className='read-the-docs'>
-        A React Starter Template to build amazing apps.
-      </p>
-    </div>
-  );
+  return <ProductList />;
 };
 
 export default App;
