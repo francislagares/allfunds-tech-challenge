@@ -19,12 +19,12 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: './src/setupTests.ts',
+    setupFiles: './tests/setupTests.ts',
     coverage: {
       enabled: true,
       provider: 'v8',
       reporter: ['text', 'html'],
-      exclude: ['node_modules/', 'src/setupTests.ts'],
+      exclude: ['node_modules/', 'tests/setupTests.ts'],
     },
   },
   resolve: {
