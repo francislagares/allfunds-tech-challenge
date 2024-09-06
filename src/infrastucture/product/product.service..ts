@@ -1,6 +1,7 @@
 import { Product } from '@/domain/entities/product';
 import { ProductRepository } from '@/domain/repositories/product.repository';
 
+import { dtoToProduct } from './mapperDto';
 import {
   getFavoriteProducts,
   getProductsFromAPI,
@@ -10,11 +11,15 @@ import {
 
 export class ProductService implements ProductRepository {
   async getAllProducts(): Promise<Product[]> {
-    return await getProductsFromAPI();
+    const productDtos = await getProductsFromAPI();
+
+    return productDtos.map(dtoToProduct);
   }
 
   async getFavorites(): Promise<Product[]> {
-    return await getFavoriteProducts();
+    const productDtos = await getFavoriteProducts();
+
+    return productDtos.map(dtoToProduct);
   }
 
   async updateFavorites(productId: string, favorite: boolean): Promise<void> {

@@ -9,6 +9,15 @@ import {
   QuantityButtons,
 } from './Cart.styles';
 
+interface CartItemProps {
+  imageUrl: string;
+  productName: string;
+  productPrice: number;
+  quantity: number;
+  onIncrease: () => void;
+  onDecrease: () => void;
+}
+
 const CartItem: React.FC<CartItemProps> = ({
   imageUrl,
   productName,

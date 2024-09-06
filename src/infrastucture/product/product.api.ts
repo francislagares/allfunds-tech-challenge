@@ -1,8 +1,9 @@
-import { Product } from '@/domain/entities/product';
 import { axiosInstance } from '@/infrastucture/axios/axiosInstance';
 
-export const getProductsFromAPI = async (): Promise<Product[]> => {
-  const response = await axiosInstance.get<Product[]>('/grocery');
+import { ProductDto } from './dto';
+
+export const getProductsFromAPI = async (): Promise<ProductDto[]> => {
+  const response = await axiosInstance.get<ProductDto[]>('/grocery');
 
   return response.data;
 };
@@ -24,7 +25,7 @@ export const updateFavoriteStatus = async (
 };
 
 export const getFavoriteProducts = async () => {
-  const response = await axiosInstance.get<Product[]>('/grocery?favorite=1');
+  const response = await axiosInstance.get<ProductDto[]>('/grocery?favorite=1');
 
   return response.data;
 };

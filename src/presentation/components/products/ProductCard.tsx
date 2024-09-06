@@ -24,7 +24,7 @@ const ProductCard: React.FC<CardProps> = ({ product, onAddToCart }) => {
 
   return (
     <CardContainer>
-      <ProductImage src={product.image_url} alt={product.productName} />
+      <ProductImage src={product.imageUrl} alt={product.productName} />
       <ProductInfo>
         <ProductTitle>{product.productName}</ProductTitle>
         <ProductPrice>${product.price}</ProductPrice>
