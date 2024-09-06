@@ -1,4 +1,10 @@
-import { createContext, PropsWithChildren, useContext, useState } from 'react';
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 import { Product } from '@/domain/entities/product';
 import { ProductService } from '@/infrastucture/product/product.service.';
@@ -22,7 +28,16 @@ type CartContextType = {
 const CartContext = createContext<CartContextType>({} as CartContextType);
 
 export function CartProvider({ children }: PropsWithChildren) {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+    // Load initial state from localStorage
+    const savedCart = localStorage.getItem('cartItems');
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+
+  // Sync cartItems to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const getItem = (product: Product) => {
     const item = cartItems.find(item => item.product.id === product.id);
@@ -111,6 +126,7 @@ export function CartProvider({ children }: PropsWithChildren) {
   );
 }
 
+// Custom hook to use the CartContext
 export const useCartContext = () => {
   const context = useContext(CartContext);
 

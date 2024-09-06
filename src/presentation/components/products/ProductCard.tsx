@@ -1,6 +1,5 @@
 import { Product } from '@/domain/entities/product';
-
-import FavoriteButton from '../button/FavoriteButton';
+import FavoriteButton from '@/presentation/components/button/FavoriteButton';
 
 import {
   AddToCartButton,

@@ -1,7 +1,7 @@
-import { Layout } from '@/presentation/layout';
+import AppRouter from './presentation/routes/AppRouter';
 
 const App = () => {
-  return <Layout />;
+  return <AppRouter />;
 };
 
 export default App;

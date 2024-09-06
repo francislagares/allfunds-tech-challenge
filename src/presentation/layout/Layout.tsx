@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 
+import { Outlet } from 'react-router-dom';
+
 import { Cart } from '@/presentation/components/cart';
-import { ProductList } from '@/presentation/components/products/ProductList';
+import Navbar from '@/presentation/components/navbar/Navbar';
 
 import { LayoutContainer, ViewSwitchButton } from './Layout.styles';
 
@@ -25,21 +27,24 @@ const Layout = () => {
   const isTwoViewLayout = windowWidth <= 1024;
 
   return (
-    <LayoutContainer>
-      {isTwoViewLayout ? (
-        <>
-          {isCartView ? <Cart /> : <ProductList />}
-          <ViewSwitchButton onClick={toggleView}>
-            {isCartView ? 'Back to Products' : 'View Cart'}
-          </ViewSwitchButton>
-        </>
-      ) : (
-        <>
-          <ProductList />
-          <Cart />
-        </>
-      )}
-    </LayoutContainer>
+    <>
+      <Navbar />
+      <LayoutContainer>
+        {isTwoViewLayout ? (
+          <>
+            {isCartView ? <Cart /> : <Outlet />}
+            <ViewSwitchButton onClick={toggleView}>
+              {isCartView ? 'Back to Products' : 'View Cart'}
+            </ViewSwitchButton>
+          </>
+        ) : (
+          <>
+            <Outlet />
+            <Cart />
+          </>
+        )}
+      </LayoutContainer>
+    </>
   );
 };
 
