@@ -2,8 +2,6 @@ import styled from 'styled-components';
 
 // Layout container to manage both product list and cart visibility
 export const LayoutContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
   width: 100%;
 
   @media (max-width: 1024px) {

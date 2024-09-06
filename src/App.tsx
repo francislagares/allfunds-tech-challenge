@@ -1,7 +1,7 @@
-import AppRouter from './presentation/routes/AppRouter';
+import { Outlet } from 'react-router-dom';
 
 const App = () => {
-  return <AppRouter />;
+  return <Outlet />;
 };
 
 export default App;

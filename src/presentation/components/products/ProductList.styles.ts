@@ -27,6 +27,12 @@ export const ProductsGrid = styled.div`
   }
 `;
 
+export const ProductsHeading = styled.h1`
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+`;
+
 export const CardContainer = styled.div`
   border: 1px solid #ddd;
   border-radius: 8px;

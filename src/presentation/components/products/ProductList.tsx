@@ -8,7 +8,7 @@ import { Product } from '@/domain/entities/product';
 import { ProductService } from '@/infrastucture/product/product.service.';
 
 import ProductCard from './ProductCard';
-import { ProductsGrid } from './ProductList.styles';
+import { ProductsGrid, ProductsHeading } from './ProductList.styles';
 
 const productRepository = new ProductService();
 
@@ -35,6 +35,7 @@ export const ProductList: React.FC = () => {
 
   return (
     <>
+      <ProductsHeading>Products</ProductsHeading>
       <ProductsGrid>
         {products?.map(product => (
           <ProductCard

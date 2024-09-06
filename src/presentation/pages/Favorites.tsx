@@ -6,6 +6,8 @@ import { ProductService } from '@/infrastucture/product/product.service.';
 import ProductCard from '@/presentation/components/products/ProductCard';
 import { ProductsGrid } from '@/presentation/components/products/ProductList.styles';
 
+import { StyledHeading } from './Favorites.styles';
+
 const productService = new ProductService();
 
 const FavoritesPage: React.FC = () => {
@@ -19,6 +21,7 @@ const FavoritesPage: React.FC = () => {
   });
 
   if (isLoading) return <div>Loading favorites...</div>;
+
   if (error) return <div>Error fetching favorites: {error.message}</div>;
 
   if (!favoriteProducts || favoriteProducts.length === 0) {
@@ -26,15 +29,18 @@ const FavoritesPage: React.FC = () => {
   }
 
   return (
-    <ProductsGrid>
-      {favoriteProducts.map(product => (
-        <ProductCard
-          key={product.id}
-          product={product}
-          onAddToCart={() => {}}
-        />
-      ))}
-    </ProductsGrid>
+    <>
+      <StyledHeading>Favorite Products</StyledHeading>
+      <ProductsGrid>
+        {favoriteProducts.map(product => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            onAddToCart={() => {}}
+          />
+        ))}
+      </ProductsGrid>
+    </>
   );
 };
 
