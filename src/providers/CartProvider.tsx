@@ -31,6 +31,7 @@ export function CartProvider({ children }: PropsWithChildren) {
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
     // Load initial state from localStorage
     const savedCart = localStorage.getItem('cartItems');
+
     return savedCart ? JSON.parse(savedCart) : [];
   });
 
@@ -41,6 +42,7 @@ export function CartProvider({ children }: PropsWithChildren) {
 
   const getItem = (product: Product) => {
     const item = cartItems.find(item => item.product.id === product.id);
+
     return item || null;
   };
 
@@ -48,6 +50,7 @@ export function CartProvider({ children }: PropsWithChildren) {
     // Fetch the current product data
     const products = await productService.getAllProducts();
     const product = products.find(p => p.id === productId);
+
     if (product) {
       // Calculate the new stock value
       const newStock = product.stock + change;
@@ -80,6 +83,7 @@ export function CartProvider({ children }: PropsWithChildren) {
 
   const removeFromCart = async (product: Product) => {
     const item = getItem(product);
+
     if (!item) return;
 
     if (item.quantity > 1) {
